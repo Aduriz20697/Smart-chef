@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import type { Recipe } from '../types';
 import { CookingMode } from './CookingMode';
-import { XMarkIcon, CheckCircleIcon, ShoppingCartIcon, SparklesIcon } from './IconComponents';
+import { XMarkIcon, CheckCircleIcon, ShoppingCartIcon, SparklesIcon, BookmarkIcon, BookmarkSolidIcon } from './IconComponents';
 
 interface RecipeModalProps {
   recipe: Recipe;
   onClose: () => void;
+  onSaveToggle: (recipe: Recipe) => void;
+  isSaved: boolean;
 }
 
-export const RecipeModal: React.FC<RecipeModalProps> = ({ recipe, onClose }) => {
+export const RecipeModal: React.FC<RecipeModalProps> = ({ recipe, onClose, onSaveToggle, isSaved }) => {
     const [isCookingMode, setIsCookingMode] = useState(false);
 
     if (isCookingMode) {
@@ -52,10 +54,19 @@ export const RecipeModal: React.FC<RecipeModalProps> = ({ recipe, onClose }) => 
             </div>
         </div>
         
-        <div className="p-5 border-t mt-auto">
+        <div className="p-5 border-t mt-auto flex flex-col-reverse sm:flex-row gap-3">
+            <button
+                onClick={() => onSaveToggle(recipe)}
+                className={`w-full sm:w-auto flex-1 sm:flex-none justify-center border font-bold py-3 px-4 rounded-full flex items-center space-x-2 transition-colors ${
+                    isSaved ? 'bg-green-100 border-green-200 text-green-800' : 'border-gray-300 text-gray-700 hover:bg-gray-100'
+                }`}
+            >
+                {isSaved ? <BookmarkSolidIcon className="h-6 w-6"/> : <BookmarkIcon className="h-6 w-6"/>}
+                <span>{isSaved ? 'Saved' : 'Save Recipe'}</span>
+            </button>
             <button
                 onClick={() => setIsCookingMode(true)}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full flex items-center justify-center space-x-2 transition-transform transform hover:scale-105"
+                className="w-full sm:w-auto flex-grow bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full flex items-center justify-center space-x-2 transition-transform transform hover:scale-105"
             >
                 <SparklesIcon className="h-6 w-6"/>
                 <span>Start Cooking Mode</span>
