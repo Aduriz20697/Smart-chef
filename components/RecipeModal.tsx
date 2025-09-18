@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import type { Recipe } from '../types';
 import { CookingMode } from './CookingMode';
-import { XMarkIcon, CheckCircleIcon, ShoppingCartIcon, SparklesIcon, BookmarkIcon, BookmarkSolidIcon } from './IconComponents';
+import { XMarkIcon, CheckCircleIcon, ShoppingCartIcon, SparklesIcon, BookmarkIcon, BookmarkSolidIcon, ClockIcon, ChartBarIcon } from './IconComponents';
 
 interface RecipeModalProps {
   recipe: Recipe;
@@ -31,6 +31,20 @@ export const RecipeModal: React.FC<RecipeModalProps> = ({ recipe, onClose, onSav
         <div className="overflow-y-auto p-6 space-y-6">
             <p className="text-gray-600">{recipe.description}</p>
             
+            <div className="flex items-center justify-around bg-gray-100 p-4 rounded-xl text-center">
+                <div className="flex flex-col items-center px-4">
+                    <ClockIcon className="h-6 w-6 text-gray-500 mb-1" />
+                    <span className="text-sm text-gray-600">Time</span>
+                    <span className="font-bold text-gray-800">{recipe.cookingTime}</span>
+                </div>
+                <div className="border-l h-10 border-gray-300"></div>
+                <div className="flex flex-col items-center px-4">
+                    <ChartBarIcon className="h-6 w-6 text-gray-500 mb-1" />
+                    <span className="text-sm text-gray-600">Difficulty</span>
+                    <span className="font-bold text-gray-800">{recipe.difficulty}</span>
+                </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h3 className="text-lg font-semibold flex items-center mb-2"><CheckCircleIcon className="h-5 w-5 text-green-500 mr-2"/>Ingredients You Have</h3>

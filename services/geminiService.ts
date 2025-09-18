@@ -47,6 +47,8 @@ const recipeSchema = {
         properties: {
             recipeName: { type: Type.STRING, description: "Creative name of the recipe." },
             description: { type: Type.STRING, description: "A brief, enticing 1-2 sentence description of the dish." },
+            cookingTime: { type: Type.STRING, description: "Estimated total cooking time, e.g., '30 minutes'." },
+            difficulty: { type: Type.STRING, description: "Difficulty level, must be one of: 'Easy', 'Medium', or 'Hard'." },
             neededIngredients: {
                 type: Type.ARRAY,
                 items: { type: Type.STRING },
@@ -63,7 +65,7 @@ const recipeSchema = {
                 description: "Step-by-step cooking instructions."
             },
         },
-        required: ["recipeName", "description", "neededIngredients", "usedIngredients", "instructions"]
+        required: ["recipeName", "description", "cookingTime", "difficulty", "neededIngredients", "usedIngredients", "instructions"]
     }
 };
 
@@ -74,7 +76,7 @@ export async function generateRecipes(ingredients: string[], filters: string[], 
         Dietary preferences: ${filters.join(', ') || 'None'}
         ${leftovers ? `Leftovers to incorporate: "${leftovers}"` : ''}
 
-        For each recipe, provide the required information in the specified JSON format. Ensure the instructions are clear and sequential.
+        For each recipe, provide the required information in the specified JSON format. This includes a creative name, a brief description, an estimated cooking time (e.g., "30 minutes"), and a difficulty level ('Easy', 'Medium', or 'Hard'). Ensure the instructions are clear and sequential.
     `;
 
     const response = await ai.models.generateContent({
