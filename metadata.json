@@ -1,0 +1,7 @@
+{
+  "name": "SmartChef – AI Recipe Companion",
+  "description": "An AI-powered recipe companion that suggests meals based on ingredients you have, helping you reduce food waste and plan meals effortlessly. Features fridge scanning, dietary filters, and step-by-step cooking guidance.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
